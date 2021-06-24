@@ -1,5 +1,5 @@
 {
-    "name": "pyroscope/pyroscope-php",
+    "name": "pyroscope/client",
     "description": "pyroscope client integration for php",
     "license": "Apache-2.0",
     "authors": [
