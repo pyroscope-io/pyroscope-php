@@ -1,0 +1,15 @@
+{
+    "name": "pyroscope/pyroscope-php",
+    "description": "pyroscope client integration for php",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Pyroscope Team",
+            "email": "contact@pyroscope.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Pyroscope\\": "src" }
+    },
+    "require": {}
+}
