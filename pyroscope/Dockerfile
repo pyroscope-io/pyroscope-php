@@ -9,11 +9,12 @@ RUN apt-get -y install gcc make vim wget git autoconf bison \
 RUN git clone https://github.com/php/php-src.git
 WORKDIR /php-src/
 
-#This file is available only in php8, but we want to stay with php7 for building
-RUN git checkout php-8.0.0
+# This file is available only in php8, and works only in php-8.1.0alpha1 release
+RUN git checkout php-8.1.0alpha1
 RUN cp build/gen_stub.php /tmp/gen_stub.php
 
-#RUN git checkout php-7.4.3
+# We want to stay with php7 for building & deployment
+RUN git checkout php-7.4.3
 RUN ./buildconf --force
 RUN ./configure --prefix=/php-bin/
 RUN make -j
@@ -27,15 +28,15 @@ RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd6
 RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libpyroscope.phpspy.h -O libpyroscope.phpspy.h
 RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libphpspy.a -O libphpspy.a
 
-#TODO: Tests were removed, but there is an example in the skeleton which can be used
+# TODO: Tests were removed, but there is an example in the skeleton which can be used
 COPY config.m4 config.w32 pyroscope.c php_pyroscope.h pyroscope.stub.php /app
 
 ENV PATH="/php-bin/bin:${PATH}"
 RUN /tmp/gen_stub.php
 RUN phpize
 RUN LDFLAGS="-pthread -lrt -lm -ldl -Wl,--whole-archive libpyroscope.phpspy.a libphpspy.a -Wl,--no-whole-archive" ./configure
-#RUN make -j
-#RUN make install
+RUN make -j
+RUN make install
 
 
 
