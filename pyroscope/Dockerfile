@@ -14,11 +14,12 @@ RUN git checkout php-8.1.0alpha1
 RUN cp build/gen_stub.php /tmp/gen_stub.php
 
 # We want to stay with php7 for building & deployment
-RUN git checkout php-7.4.3
-RUN ./buildconf --force
-RUN ./configure --prefix=/php-bin/
-RUN make -j
-RUN make install
+#RUN git checkout php-7.4.3
+#RUN ./buildconf --force
+#RUN ./configure --prefix=/php-bin/
+#RUN make -j
+#RUN make install
+#ENV PATH="/php-bin/bin:${PATH}"
 
 ARG pyroscope_libs_sha
 ARG pyroscope_php_tag="v0.0.0"
@@ -34,12 +35,11 @@ https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libphpspy.a 
 # TODO: Tests were removed, but there is an example in the skeleton which can be used
 COPY config.m4 config.w32 pyroscope.c php_pyroscope.h pyroscope.stub.php /app
 
-ENV PATH="/php-bin/bin:${PATH}"
 RUN /tmp/gen_stub.php
 RUN phpize
 RUN LDFLAGS="-pthread -lrt -lm -ldl -Wl,--whole-archive libpyroscope.phpspy.a libphpspy.a -Wl,--no-whole-archive" ./configure
 RUN make -j
-RUN make install
+RUN INSTALL_ROOT="/app/out" make install
 
 
 
