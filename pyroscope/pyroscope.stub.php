@@ -2,6 +2,4 @@
 
 /** @generate-class-entries */
 
-function test1(): void {}
-
-function test2(string $str = ""): string {}
+function start(string $applicationName, int $cpid, string $spyName, string $serverAddress, string $authToken, int $sampleRate, int $withSubprocesses, string $logLevel): string {}
