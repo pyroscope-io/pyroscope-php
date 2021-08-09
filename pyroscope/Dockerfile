@@ -24,9 +24,12 @@ ARG pyroscope_libs_sha
 ARG pyroscope_php_tag="v0.0.0"
 
 WORKDIR /app/
-RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libpyroscope.phpspy.a -O libpyroscope.phpspy.a
-RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libpyroscope.phpspy.h -O libpyroscope.phpspy.h
-RUN wget -qnc https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libphpspy.a -O libphpspy.a
+RUN wget -qnc \
+https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libpyroscope.phpspy.a -O libpyroscope.phpspy.a
+RUN wget -qnc \
+https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libpyroscope.phpspy.h -O libpyroscope.phpspy.h
+RUN wget -qnc \
+https://dl.pyroscope.io/static-libs/$pyroscope_libs_sha/linux-amd64/libphpspy.a -O libphpspy.a
 
 # TODO: Tests were removed, but there is an example in the skeleton which can be used
 COPY config.m4 config.w32 pyroscope.c php_pyroscope.h pyroscope.stub.php /app
