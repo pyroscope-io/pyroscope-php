@@ -22,7 +22,7 @@ GoInt Start(char* applicationName, int cpid, char* spyName,
 				char* serverAddress, char* authToken, int sampleRate,
 				int withSubprocesses, char* logLevel);
 */
-/* {{{ string Start( [ string $applicationName, int $cpid, string $spyName, string $serverAddress, string $authToken, int $sampleRate, int $withSubprocesses, string $logLevel ] ) */
+/* {{{ long Start( [ string $applicationName, int $cpid, string $spyName, string $serverAddress, string $authToken, int $sampleRate, int $withSubprocesses, string $logLevel ] ) */
 PHP_FUNCTION(start)
 {
 	char *applicationName = NULL;
@@ -41,7 +41,7 @@ PHP_FUNCTION(start)
 
 	long retval = 0;
 
-	ZEND_PARSE_PARAMETERS_START(0, 8)
+	ZEND_PARSE_PARAMETERS_START(8, 8)
 	Z_PARAM_STRING(applicationName, applicatioName_len)
 	Z_PARAM_LONG(cpid)
 	Z_PARAM_STRING(spyName, spyName_len)
