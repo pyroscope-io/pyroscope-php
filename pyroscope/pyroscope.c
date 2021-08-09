@@ -17,12 +17,7 @@
 	ZEND_PARSE_PARAMETERS_END()
 #endif
 
-/*
-GoInt Start(char* applicationName, int cpid, char* spyName,
-				char* serverAddress, char* authToken, int sampleRate,
-				int withSubprocesses, char* logLevel);
-*/
-/* {{{ long Start( [ string $applicationName, int $cpid, string $spyName, string $serverAddress, string $authToken, int $sampleRate, int $withSubprocesses, string $logLevel ] ) */
+/* {{{ long start( [ string $applicationName, int $cpid, string $spyName, string $serverAddress, string $authToken, int $sampleRate, int $withSubprocesses, string $logLevel ] ) */
 PHP_FUNCTION(start)
 {
 	char *applicationName = NULL;
@@ -53,6 +48,41 @@ PHP_FUNCTION(start)
 	ZEND_PARSE_PARAMETERS_END();
 
 	retval = Start(applicationName, cpid, spyName, serverAddress, authToken, sampleRate, withSubprocesses, logLevel);
+
+	RETURN_LONG(retval);
+}
+/* }}}*/
+
+/* {{{ long stop( [ int $pid ] ) */
+PHP_FUNCTION(stop)
+{
+	long pid = 0;
+	long retval = 0;
+
+	ZEND_PARSE_PARAMETERS_START(1, 1)
+	Z_PARAM_LONG(pid)
+	ZEND_PARSE_PARAMETERS_END();
+
+	retval = Stop(pid);
+
+	RETURN_LONG(retval);
+}
+/* }}}*/
+
+/* {{{ long changeName( [ string $newName, int $pid ] ) */
+PHP_FUNCTION(changeName)
+{
+	char *newName = NULL;
+	size_t newName_len = 0;
+	long pid = 0;
+	long retval = 0;
+
+	ZEND_PARSE_PARAMETERS_START(2, 2)
+	Z_PARAM_LONG(pid)
+	Z_PARAM_STRING(newName, newName_len)
+	ZEND_PARSE_PARAMETERS_END();
+
+	retval = ChangeName(newName, pid);
 
 	RETURN_LONG(retval);
 }
