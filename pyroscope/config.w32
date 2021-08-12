@@ -1,0 +1,7 @@
+ARG_ENABLE('pyroscope', 'pyroscope support', 'no');
+
+if (PHP_PYROSCOPE != 'no') {
+	AC_DEFINE('HAVE_PYROSCOPE', 1, 'pyroscope support enabled');
+
+	EXTENSION('pyroscope', 'pyroscope.c', null, '/DZEND_ENABLE_STATIC_TSRMLS_CACHE=1');
+}
